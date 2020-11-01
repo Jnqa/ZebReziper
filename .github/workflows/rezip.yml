@@ -1,4 +1,4 @@
-name: Continuous Integration
+name: Reziper
 on:
   push:
   pull_request:
@@ -18,8 +18,7 @@ jobs:
       - name: Show me
         run: ls rezip || echo "No folder"
       - run: find . -name "*.debug" -exec rm {} \;
-      - run: find . -name "*.sym" -exec mv {} *.so;
-      - run: find . -name '*.sym' -exec sh -c 'mv "$0" "${0%.sym}.so"' {} \;
+      - run: find . -name "*.sym" -exec mv {} *.so && find . -name '*.sym' -exec sh -c 'mv "$0" "${0%.sym}.so"' {} \;
       - name: Zip
         run: cd rezip &&  zip -9 -r test.zip * && mv test.zip ../test.zip && rm -r ../rezip;
       - name: echo
