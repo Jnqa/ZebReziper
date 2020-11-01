@@ -11,6 +11,8 @@ jobs:
         run: sh reziper.sh $ARCHIVE_NAME
         env:
           ARCHIVE_NAME: test.zip
+      - name: GET VAR
+        uses: echo "::set-env name=ARCHIVE_NAME::$ARCHIVE_NAME"
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
