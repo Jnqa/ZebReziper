@@ -12,7 +12,7 @@ jobs:
         env:
           ARCHIVE_NAME: test.zip
       - name: GET VAR
-        uses: echo "::set-env name=ARCHIVE_NAME::$ARCHIVE_NAME"
+        run: echo "::set-env ARCHIVE_NAME=$ARCHIVE_NAME::$ARCHIVE_NAMES"
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
