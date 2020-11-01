@@ -15,5 +15,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: processed-symbols
-          path: $ARCHIVE_NAME
+          path: ${{ARCHIVE_NAME}}
           retention-days: 7
