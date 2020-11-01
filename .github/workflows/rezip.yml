@@ -8,12 +8,12 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: run reziper.sh
-        run: sh reziper.sh ${ARCHIVE_NAME}
+        run: sh reziper.sh test.zip
         env:
           ARCHIVE_NAME: test.zip
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: processed-symbols
-          path: ${{ARCHIVE_NAME}}
+          path: test.zip
           retention-days: 7
