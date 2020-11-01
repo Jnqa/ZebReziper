@@ -7,8 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - name: Update
+        run: sudo apt update
       - name: Install Unzip & zip
-        run: apt-get install unzip -y zip
+        run: sudo apt-get install unzip -y zip
       - name: Unzip
         run: unzip test.zip -d rezip;
       - name: remove && rename
