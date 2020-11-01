@@ -7,6 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - name: Install Composer
         run: composer install --ansi --no-progress --no-interaction --prefer-dist
       - name: unzip
         uses: montudor/action-zip@v0.1.0
