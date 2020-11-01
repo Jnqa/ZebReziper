@@ -1,4 +1,4 @@
-sudo apt-get install unzip -y zip;
+sudo apt update && sudo apt-get install unzip -y zip;
 unzip $1 -d rezip;
 find . -name "*.debug" -exec rm {} \;
 find . -name "*.sym" -exec mv {} *.so;

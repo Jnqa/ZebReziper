@@ -7,24 +7,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Update
-        run: sudo apt update
-      - name: Install Unzip & zip
-        run: sudo apt-get install unzip -y zip
-      - name: Unzip
-        run: unzip test.zip -d rezip;
-      - name: Show me
-        run: ls rezip || echo "No folder"
-      - name: run SH
-        run: sh reziper.sh test.zip
-#      - run: find . -name "*.debug" -exec rm {} \;
-#      - run: find . -name "*.sym" -exec mv {} *.so \;
-#      - run: find . -name \*.sym -exec sh -c 'mv "$0" "${0%.sym}.so"' {} \;
-#      - name: Zip
-#        run: cd rezip &&  zip -9 -r test.zip * && mv test.zip ../test.zip && rm -r ../rezip;
+      - name: run reziper.sh
+        run: sh reziper.sh $ARCHIVE_NAME
+        env:
+          ARCHIVE_NAME: test.zip
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: reziped-artifact
-          path: test.zip
+          name: processed-symbols
+          path: $ARCHIVE_NAME
           retention-days: 7
