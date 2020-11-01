@@ -8,11 +8,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: run reziper.sh
-        run: sh reziper.sh $ARCHIVE_NAME
+        run: sh reziper.sh ${ARCHIVE_NAME}
         env:
           ARCHIVE_NAME: test.zip
-      - name: GET VAR
-        run: echo "::set-env ARCHIVE_NAME=$ARCHIVE_NAME::$ARCHIVE_NAMES"
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
