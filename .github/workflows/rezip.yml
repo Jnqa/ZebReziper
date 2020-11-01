@@ -22,7 +22,7 @@ jobs:
         run: cd rezip &&  zip -9 -r test.zip * && mv test.zip ../test.zip && rm -r ../rezip;
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
-          with:
-            name: reziped artifact
-            path: test.zip
-            retention-days: 7
+        with:
+          name: reziped artifact
+          path: test.zip
+          retention-days: 7
