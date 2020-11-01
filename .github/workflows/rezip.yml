@@ -9,6 +9,8 @@ jobs:
       - uses: actions/checkout@v1
       - name: Update
         run: sudo apt update
+      - name: Var test
+        run: var1="test.zap"
       - name: Install Unzip & zip
         run: sudo apt-get install unzip -y zip
       - name: Unzip
@@ -16,6 +18,8 @@ jobs:
       - name: remove && rename
         run: find . -name "*.debug" -exec rm {}; find . -name "*.sym" -exec mv {} *.so; find . -name '*.sym' -exec sh -c 'mv "$0" "${0%.sym}.so"' {} \;
       - name: Zip
-        run: cd rezip &&  zip -9 -r $1 * && mv $1 ../$1 && rm -r ../rezip;
+        run: cd rezip &&  zip -9 -r test.zip * && mv test.zip ../test.zip && rm -r ../rezip;
       - name: echo
         run: echo "Reziped!"
+      - name: echo test
+        run: echo $var1
