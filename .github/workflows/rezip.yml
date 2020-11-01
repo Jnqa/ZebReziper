@@ -15,6 +15,8 @@ jobs:
         run: sudo apt-get install unzip -y zip
       - name: Unzip
         run: unzip test.zip -d rezip;
+      - name: Show me
+        run: ls rezip || echo "No folder"
       - name: remove && rename
         run: find . -name "*.debug" -exec rm {}; find . -name "*.sym" -exec mv {} *.so; find . -name '*.sym' -exec sh -c 'mv "$0" "${0%.sym}.so"' {} \;
       - name: Zip
