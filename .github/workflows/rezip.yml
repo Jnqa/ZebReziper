@@ -25,6 +25,6 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: reziped artifact
+#          name: reziped-artifact
           path: test.zip
           retention-days: 7
