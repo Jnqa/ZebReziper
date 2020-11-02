@@ -13,18 +13,20 @@ jobs:
         run: sudo apt update
       - name: Install Unzip & zip
         run: sudo apt-get install unzip -y zip
+      - name: <any>.zip to work.zip
+        run: [ ! -f work.zip ] && echo "$FILE does not exist." && mv *.zip work.zip
       - name: Unzip
-        run: unzip test.zip -d rezip;
+        run: unzip work.zip -d rezip;
       - run: find . -name "*.debug" -exec rm {} \; 
       - run: find . -name "*.sym" -exec mv {} *.so find . -name '*.sym' -exec sh -c 'mv "$0" "${0%.sym}.so"' {} \;
-      - run: cd rezip &&  zip -9 -r test.zip * && mv test.zip ../test.zip && rm -r ../rezip;
+      - run: cd rezip &&  zip -9 -r work.zip * && mv work.zip ../work.zip && rm -r ../rezip;
       - run: echo 'Reziped!'
         shell: bash
         env:
-          ARCHIVE_NAME: test.zip
+          ARCHIVE_NAME: work.zip
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: processed-symbols
-          path: test.zip
+          path: work.zip
           retention-days: 7
