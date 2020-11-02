@@ -2,7 +2,7 @@ name: Reziper
 on:
   push:
   pull_request:
-runs:
+jobs:
   using: "composite"
   steps: 
     - name:  upd & install
