@@ -9,6 +9,9 @@ jobs:
     name: A job that copy files
     steps:
       - uses: actions/checkout@v1
+      - name: Get filename
+        id: get_filename
+        run: echo ::set-output name=FILENAME::$(find . -name '*.zip' | head -1 | cut -d / -f 2)
       - name: All script
         run:  | 
           sudo apt update && sudo apt-get install unzip -y zip 
@@ -24,5 +27,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: processed-symbols
-          path: work.zip
+          path: ${{ steps.get_filename.output.FILENAME }}
           retention-days: 7
