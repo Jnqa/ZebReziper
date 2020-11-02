@@ -1,5 +1,8 @@
 name: Reziper
 description: 'Ok. description.'
+on:
+  push:
+  pull_request:
 inputs:
   destinationFolder:  # path
     description: 'description 2'
