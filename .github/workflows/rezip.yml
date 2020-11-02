@@ -2,18 +2,23 @@ name: Reziper
 on:
   push:
   pull_request:
-jobs:
-  composer-install:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - name: run reziper.sh
-        run: sh reziper.sh test.zip
-        env:
-          ARCHIVE_NAME: test.zip
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: processed-symbols
-          path: test.zip
-          retention-days: 7
+runs:
+  using: "composite"
+  steps: 
+    - name:  upd & install
+      run: sudo apt update && sudo apt-get install unzip -y zip
+    - run: unzip $1 -d rezip
+    - run:  find . -name "*.debug" -exec rm {} \;
+      find . -name "*.sym" -exec mv {} *.so;
+      find . -name '*.sym' -exec sh -c 'mv "$0" "${0%.sym}.so"' {} \;
+      cd rezip &&  zip -9 -r $1 * && mv $1 ../$1 && rm -r ../rezip;
+      echo 'Reziped!'
+      shell: bash
+      env:
+        ARCHIVE_NAME: test.zip
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: processed-symbols
+        path: test.zip
+        retention-days: 7
