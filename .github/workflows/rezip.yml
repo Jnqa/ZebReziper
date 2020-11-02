@@ -20,12 +20,10 @@ jobs:
           find . -name "*.debug" -exec rm {} \; 
           find . -name "*.sym" -exec mv {} *.so find . -name '*.sym' -exec sh -c 'mv "$0" "${0%.sym}.so"' {} \;
           cd rezip &&  zip -9 -r work.zip * && mv work.zip ../work.zip && rm -r ../rezip && echo 'Reziped!';
-          echo ${{ steps.get_filename.output.FILENAME }}
-          
-          mv work.zip ${{ steps.get_filename.output.FILENAME }}
         shell: bash
-        env:
-          ARCHIVE_NAME: work.zip
+      - name: get name
+        run: echo ${{ steps.get_filename.output.FILENAME }}
+      - run: mv work.zip ${{ steps.get_filename.output.FILENAME }}
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
