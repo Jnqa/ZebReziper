@@ -11,22 +11,21 @@ jobs:
       - uses: actions/checkout@v1
       - name: Get filename
         id: get_filename
-        run: echo ::set-output name=FILENAME::$(find . -name '*.zip' | head -1 | cut -d / -f 2) && echo $(find . -name '*.zip' | head -1 | cut -d / -f 2)
+        run: echo ::set-output name=FNAME::$(find . -name '*.zip' | head -1 | cut -d / -f 2) && echo $(find . -name '*.zip' | head -1 | cut -d / -f 2)
       - name: All script
         run:  | 
-          sudo apt update && sudo apt-get install unzip -y zip 
+          FNAME=$(find . -name '*.zip' | head -1 | cut -d / -f 2);
+          sudo apt update && sudo apt-get install unzip -y zip;
           mv *.zip work.zip;
           unzip work.zip -d rezip;
           find . -name "*.debug" -exec rm {} \; 
           find . -name "*.sym" -exec mv {} *.so find . -name '*.sym' -exec sh -c 'mv "$0" "${0%.sym}.so"' {} \;
           cd rezip &&  zip -9 -r work.zip * && mv work.zip ../work.zip && rm -r ../rezip && echo 'Reziped!';
+          mv work.zip FNAME
         shell: bash
-      - name: get name
-        run: echo ${{ steps.get_filename.output.FILENAME }}
-      - run: mv work.zip ${{ steps.get_filename.output.FILENAME }}
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: processed-symbols
-          path: ${{ steps.get_filename.output.FILENAME }}
+          path: ${{ steps.get_filename.output.FNAME }}
           retention-days: 7
