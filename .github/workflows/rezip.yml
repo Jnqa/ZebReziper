@@ -1,17 +1,8 @@
 name: Reziper
-description: 'Ok. description.'
 on:
   push:
   pull_request:
-inputs:
-  destinationFolder:  # path
-    description: 'description 2'
-    required: true
-    default: '~'
-outputs:
-  copied-files: 
-    description: "description 3"
-    value: ${{ steps.random-number-generator.outputs.filesNo }}
+
 jobs:
   copy_files_job:
     runs-on: ubuntu-latest
