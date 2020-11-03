@@ -6,14 +6,14 @@ on:
 jobs:
   copy_files_job:
     runs-on: ubuntu-latest
-    name: A job that copy files
+    name: Reziper in work
     steps:
       - uses: actions/checkout@v1
       - name: Get filename
         id: get_filename
-        run: echo ::set-output name=FNAME::$(find . -name '*.zip' | head -1 | cut -d / -f 2) && echo $(find . -name '*.zip' | head -1 | cut -d / -f 2)
+        run: echo ::set-env name={FNAME}::$(find . -name '*.zip' | head -1 | cut -d / -f 2)
       - name: Show me VAR
-        run: echo ${{ steps.get_filename.output.FNAME }}
+        run: echo ${{ FNAME }}
 #      - name: All script
 #        run:  | 
 #          FNAME=$(find . -name '*.zip' | head -1 | cut -d / -f 2); echo $FNAME;
