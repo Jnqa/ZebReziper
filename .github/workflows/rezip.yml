@@ -10,11 +10,12 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Show me VAR
-        run: echo "filename is ${FNAME}"
-        env:
-          FNAME: $(find . -name '*.zip' | head -1 | cut -d / -f 2)
+        id: get_version
+        run: echo ::set-output name=VERSION::$$(find . -name '*.zip' | head -1 | cut -d / -f 2)
       - name: Later
-        run: echo "Later > ${FNAME}"
+        run: echo "Later > ${FNAME}" && echo "After > $FNAME" 
+        env: 
+          FNAME: ${{ steps.get_version.outputs.VERSION }}
 #      - name: All script
 #        run:  | 
 #          FNAME=$(find . -name '*.zip' | head -1 | cut -d / -f 2); echo $FNAME;
