@@ -30,11 +30,17 @@ jobs:
           name: processed-symbols
           path: ${{ steps.get_fname.outputs.FNAME }}
           retention-days: 7
-      - name: Upload to Google Drive
-        uses: satackey/action-google-drive@v1
+      - uses: actions/upload-artifact@v2
         with:
-          skicka-tokencache-json: ${{ secrets.SKICKA_TOKENCACHE_JSON }}
-          upload-from: ./*.zip
-          upload-to: /lab/
-          google-client-id: ${{ secrets.GOOGLE_CLIENT_ID }}
-          google-client-secret: ${{ secrets.GOOGLE_CLIENT_SECRET }}      
+          name: my-artifact
+          path: *.zip
+
+#          
+#      - name: Upload to Google Drive
+#        uses: satackey/action-google-drive@v1
+#        with:
+#          skicka-tokencache-json: ${{ secrets.SKICKA_TOKENCACHE_JSON }}
+#          upload-from: ./*.zip
+#          upload-to: /lab/
+#          google-client-id: ${{ secrets.GOOGLE_CLIENT_ID }}
+#          google-client-secret: ${{ secrets.GOOGLE_CLIENT_SECRET }}      
