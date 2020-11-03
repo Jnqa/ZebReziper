@@ -14,7 +14,7 @@ jobs:
         env:
           FNAME: $(find . -name '*.zip' | head -1 | cut -d / -f 2)
       - name: Later
-        run: echo "Later > ${{FNAME}}"
+        run: echo "Later > ${FNAME}"
 #      - name: All script
 #        run:  | 
 #          FNAME=$(find . -name '*.zip' | head -1 | cut -d / -f 2); echo $FNAME;
