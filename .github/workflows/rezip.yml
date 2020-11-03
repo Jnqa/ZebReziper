@@ -9,11 +9,12 @@ jobs:
     name: Reziper in work
     steps:
       - uses: actions/checkout@v1
-      - name: Get filename
-        id: get_filename
-        run: echo ::set-env name={FNAME}::$(find . -name '*.zip' | head -1 | cut -d / -f 2)
       - name: Show me VAR
-        run: echo ${{ FNAME }}
+        run: echo "filename is ${FNAME}"
+        env:
+          FNAME: $(find . -name '*.zip' | head -1 | cut -d / -f 2)
+      - name: Later
+        run: echo "Later > ${{FNAME}}"
 #      - name: All script
 #        run:  | 
 #          FNAME=$(find . -name '*.zip' | head -1 | cut -d / -f 2); echo $FNAME;
