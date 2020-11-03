@@ -26,7 +26,7 @@ jobs:
           FNAME: ${{ steps.get_version.outputs.VERSION }}
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
-       with:
-         name: processed-symbols
-          path: ${{ steps.get_version.outputs.VERSION }}
-          retention-days: 7
+        with:
+          name: processed-symbols
+           path: ${{ steps.get_version.outputs.VERSION }}
+           retention-days: 7
