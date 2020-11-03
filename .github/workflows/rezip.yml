@@ -12,24 +12,21 @@ jobs:
       - name: Show me VAR
         id: get_version
         run: echo ::set-output name=VERSION::$(find . -name '*.zip' | head -1 | cut -d / -f 2)
-      - name: Later
-        run: echo "Later > ${FNAME}" && echo "After > $FNAME" 
+      - name: All script
+        run:  | 
+          sudo apt update && sudo apt-get install unzip -y zip;
+          mv *.zip work.zip;
+          unzip work.zip -d rezip;
+          find . -name "*.debug" -exec rm {} \; 
+          find . -name "*.sym" -exec mv {} *.so find . -name '*.sym' -exec sh -c 'mv "$0" "${0%.sym}.so"' {} \;
+          cd rezip &&  zip -9 -r work.zip * && mv work.zip ../work.zip && rm -r ../rezip && echo 'Reziped!';
+          cd ../ && mv work.zip ${FNAME}
+        shell: bash
         env: 
           FNAME: ${{ steps.get_version.outputs.VERSION }}
-#      - name: All script
-#        run:  | 
-#          FNAME=$(find . -name '*.zip' | head -1 | cut -d / -f 2); echo $FNAME;
-#          sudo apt update && sudo apt-get install unzip -y zip;
-#          mv *.zip work.zip;
-#          unzip work.zip -d rezip;
-#          find . -name "*.debug" -exec rm {} \; 
-#          find . -name "*.sym" -exec mv {} *.so find . -name '*.sym' -exec sh -c 'mv "$0" "${0%.sym}.so"' {} \;
-#          cd rezip &&  zip -9 -r work.zip * && mv work.zip ../work.zip && rm -r ../rezip && echo 'Reziped!';
-#          cd ../ && mv work.zip $FNAME
-#        shell: bash
-#      - name: Upload Artifact
-#        uses: actions/upload-artifact@v2
-#       with:
-#         name: processed-symbols
-#          path: ${{ steps.get_filename.output.FNAME }}
-#          retention-days: 7
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+       with:
+         name: processed-symbols
+          path: ${{ steps.get_version.outputs.VERSION }}
+          retention-days: 7
