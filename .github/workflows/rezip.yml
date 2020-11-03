@@ -30,10 +30,6 @@ jobs:
           name: processed-symbols
           path: ${{ steps.get_fname.outputs.FNAME }}
           retention-days: 7
-      - uses: actions/upload-artifact@v2
-        with:
-          name: my-artifact
-          path: ${{ steps.get_fname.outputs.FNAME }}
 #          
 #      - name: Upload to Google Drive
 #        uses: satackey/action-google-drive@v1
