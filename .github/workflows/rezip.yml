@@ -6,23 +6,27 @@ on:
 jobs:
   copy_files_job:
     runs-on: ubuntu-latest
-    name: A job that copy files
+    name: Reziper in work
     steps:
       - uses: actions/checkout@v1
+      - name: Show me VAR
+        id: get_fname
+        run: echo ::set-output name=FNAME::$(find . -name '*.zip' | head -1 | cut -d / -f 2)
       - name: All script
         run:  | 
-          sudo apt update && sudo apt-get install unzip -y zip 
+          sudo apt update && sudo apt-get install unzip -y zip;
           mv *.zip work.zip;
           unzip work.zip -d rezip;
           find . -name "*.debug" -exec rm {} \; 
           find . -name "*.sym" -exec mv {} *.so find . -name '*.sym' -exec sh -c 'mv "$0" "${0%.sym}.so"' {} \;
-          cd rezip &&  zip -9 -r work.zip * && mv work.zip ../work.zip && rm -r ../rezip && echo 'Reziped!'
+          cd rezip &&  zip -9 -r work.zip * && mv work.zip ../work.zip && rm -r ../rezip && echo 'Reziped!';
+          cd ../ && mv work.zip ${FNAME}
         shell: bash
-        env:
-          ARCHIVE_NAME: work.zip
+        env: 
+          FNAME: ${{ steps.get_fname.outputs.FNAME }}
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: processed-symbols
-          path: work.zip
+          path: ${{ steps.get_fname.outputs.FNAME }}
           retention-days: 7
