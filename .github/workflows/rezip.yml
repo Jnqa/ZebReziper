@@ -33,7 +33,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: my-artifact
-          path: *.zip
+          path: ${{ steps.get_fname.outputs.FNAME }}
 #          
 #      - name: Upload to Google Drive
 #        uses: satackey/action-google-drive@v1
