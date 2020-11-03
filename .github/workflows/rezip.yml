@@ -28,5 +28,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: processed-symbols
-           path: ${{ steps.get_version.outputs.VERSION }}
-           retention-days: 7
+          path: ${{ steps.get_version.outputs.VERSION }}
+          retention-days: 7
