@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Set VAR
-        run: echo "FNAME=$(find . -name '*.zip' | head -1 | cut -d / -f 2)" >> $GITHUB_ENV
+        run: echo FNAME=$(find . -name '*.zip' | head -1 | cut -d / -f 2) >> $GITHUB_ENV
       - name: All script
         run:  | 
           sudo apt update && sudo apt-get install unzip -y zip;
