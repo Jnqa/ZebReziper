@@ -12,41 +12,25 @@ jobs:
     name: Reziper in work
     steps:
       - uses: actions/checkout@v1
-#      - name: Show me VAR
-#        id: get_fname
-#        run: echo ::set-output name=FNAME::$(find . -name '*.zip' | head -1 | cut -d / -f 2)
       - name: Set VAR
-        id: setvar
-        run: echo "{FNAME}={export FNAME0=$(find . -name '*.zip' | head -1 | cut -d / -f 2)}" >> $GITHUB_ENV
-      - name: Set VAR b
-        id: setvarb
-        run: echo "{FNAME2}={$(find . -name '*.zip' | head -1 | cut -d / -f 2)}" >> $GITHUB_ENV
-      - name: Show me VAR
-        run: |
-          echo $FNAME 1;
-          echo $FNAME2 2;
-          echo =====
-        env:
-          FNAME: ${{ steps.setvar.outputs.FNAME }}
-          FNAME2: ${{ steps.setvarb.outputs.FNAME2 }}
-
-#      - name: All script
-#        run:  | 
-#          sudo apt update && sudo apt-get install unzip -y zip;
-#          mv *.zip work.zip;
-#          unzip work.zip -d rezip;
-#          find . -name "*.debug" -exec rm {} \; 
-#          find . -name "*.sym" -exec mv {} *.so find . -name '*.sym' -exec sh -c 'mv "$0" "${0%.sym}.so"' {} \;
-#          cd rezip &&  zip -9 -r work.zip * && mv work.zip ../work.zip && rm -r ../rezip && echo 'Reziped!';
-#          echo $FNAME;
-#          echo ${{ env.FNAME2 }};
-#          cd ../ && mv work.zip ${{ env.FNAME2 }} || echo "ERRORishe"
-#        shell: bash
-#        env: 
-#          FNAME:  ${{ env.FNAME }}
-#      - name: Upload Artifact
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: processed-symbols
-#          path:  ${{ env.FNAME2 }}
-#          retention-days: 7
+        run: echo "FNAME=$(find . -name '*.zip' | head -1 | cut -d / -f 2)" >> $GITHUB_ENV
+      - name: All script
+        run:  | 
+          sudo apt update && sudo apt-get install unzip -y zip;
+          mv *.zip work.zip;
+          unzip work.zip -d rezip;
+          find . -name "*.debug" -exec rm {} \; 
+          find . -name "*.sym" -exec mv {} *.so find . -name '*.sym' -exec sh -c 'mv "$0" "${0%.sym}.so"' {} \;
+          cd rezip &&  zip -9 -r work.zip * && mv work.zip ../work.zip && rm -r ../rezip && echo 'Reziped!';
+          echo $FNAME;
+          echo ${{ env.FNAME }};
+          cd ../ && mv work.zip ${{ env.FNAME }} || echo "ERRORishe"
+        shell: bash
+        env: 
+          FNAME:  ${{ env.FNAME }}
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: processed-symbols
+          path:  ${{ env.FNAME }}
+          retention-days: 7
