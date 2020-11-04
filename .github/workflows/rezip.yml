@@ -20,7 +20,7 @@ jobs:
         run: echo "{FNAME}={export FNAME0=$(find . -name '*.zip' | head -1 | cut -d / -f 2)}" >> $GITHUB_ENV
       - name: Set VAR b
         id: setvarb
-        run: echo "{FNAME2}={$(find . -name '*.zip' | head -1 | cut -d / -f 2)}" >> $GITHUB_ENV
+        run: echo "FNAME2=$(find . -name '*.zip' | head -1 | cut -d / -f 2)" >> $GITHUB_ENV
       - name: Show me VAR
         run: |
           echo $FNAME 1;
@@ -28,7 +28,7 @@ jobs:
           echo =====
         env:
           FNAME: ${{ steps.setvar.outputs.FNAME }}
-          FNAME2: ${{ steps.setvarb.outputs.FNAME2 }}
+          FNAME2: ${{ env.FNAME2 }}
 
 #      - name: All script
 #        run:  | 
