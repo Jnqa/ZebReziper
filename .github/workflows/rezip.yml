@@ -4,7 +4,7 @@ on:
   pull_request:
 
 env:
-  FNAME2: $(find . -name '*.zip' | head -1 | cut -d / -f 2)
+  FNAME2: ${{(find . -name '*.zip' | head -1 | cut -d / -f 2)}}
   FNAME: "EVN TEST"
 
 jobs:
