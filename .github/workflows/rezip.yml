@@ -16,9 +16,7 @@ jobs:
 #        id: get_fname
 #        run: echo ::set-output name=FNAME::$(find . -name '*.zip' | head -1 | cut -d / -f 2)
       - name: Set VAR
-        run: |
-        export FNAME0=$(find . -name '*.zip' | head -1 | cut -d / -f 2);
-        echo "{FNAME}={FNAME0}" >> $GITHUB_ENV
+        run: echo "{FNAME}={export FNAME0=$(find . -name '*.zip' | head -1 | cut -d / -f 2);}" >> $GITHUB_ENV
       - name: Show me VAR
         run: |
           echo $FNAME 1;
