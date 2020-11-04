@@ -25,10 +25,10 @@ jobs:
           cd ../ && mv work.zip $FNAME
         shell: bash
         env: 
-          FNAME:  ${{ GITHUB_ENV.FNAME }}
+          FNAME:  ${{ env.FNAME }}
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: processed-symbols
-          path:  ${{ GITHUB_ENV.FNAME }}
+          path:  ${{ env.FNAME }}
           retention-days: 7
