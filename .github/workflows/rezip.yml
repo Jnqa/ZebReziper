@@ -29,7 +29,6 @@ jobs:
           echo =====
         env:
           FNAME2: ${{ env.FNAME }}
-          FNAME3: ${{ GITHUB_ENV.FNAME }}
 
 #      - name: All script
 #        run:  | 
