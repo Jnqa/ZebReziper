@@ -20,12 +20,10 @@ jobs:
       - name: Show me VAR
         run: |
           echo $FNAME 1;
-          echo $FNAME1 2;
           echo $FNAME0 3;
           echo =====
         env:
           FNAME: ${{ env.FNAME }}
-          FNAME1: ${{ GITHUB_ENV }}
 
 #      - name: All script
 #        run:  | 
