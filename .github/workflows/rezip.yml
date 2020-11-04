@@ -5,6 +5,7 @@ on:
 
 env:
   FNAME2: $(find . -name '*.zip' | head -1 | cut -d / -f 2)
+  FNAME: "EVN TEST"
 
 jobs:
   copy_files_job:
@@ -29,7 +30,7 @@ jobs:
           echo $FNAME
         shell: bash
         env: 
-          FNAME:  ${{ FNAME }}
+          FNAME:  ${{ env.FNAME }}
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
