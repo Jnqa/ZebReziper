@@ -9,9 +9,11 @@ jobs:
     name: Reziper in work
     steps:
       - uses: actions/checkout@v1
-      - name: Show me VAR
-        id: get_fname
-        run: echo ::set-output name=FNAME::$(find . -name '*.zip' | head -1 | cut -d / -f 2)
+#      - name: Show me VAR
+#        id: get_fname
+#        run: echo ::set-output name=FNAME::$(find . -name '*.zip' | head -1 | cut -d / -f 2)
+      - name: Set VAR
+        run: echo "{FNAME}={$(find . -name '*.zip' | head -1 | cut -d / -f 2)}" >> $GITHUB_ENV
       - name: All script
         run:  | 
           sudo apt update && sudo apt-get install unzip -y zip;
@@ -23,10 +25,10 @@ jobs:
           cd ../ && mv work.zip ${FNAME}
         shell: bash
         env: 
-          FNAME: ${{ steps.get_fname.outputs.FNAME }}
+          FNAME: ${{ FNAME }}
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: processed-symbols
-          path: ${{ steps.get_fname.outputs.FNAME }}
+          path: ${{ FNAME }}
           retention-days: 7
