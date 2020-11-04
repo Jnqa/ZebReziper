@@ -19,7 +19,6 @@ jobs:
         run: echo "{FNAME}={$(find . -name '*.zip' | head -1 | cut -d / -f 2)}" >> $GITHUB_ENV
       - name: Show me VAR
         run: |
-          echo ${{ env.ENV1 }} || echo BAD;
           echo ${ env.FNAME } || echo BAD;
           echo ${ FNAME } || echo BAD;
           echo $FNAME || echo BAD;
